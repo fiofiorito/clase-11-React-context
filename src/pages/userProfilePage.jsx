@@ -1,11 +1,10 @@
 import User from "../components/User";
 
-// esta prop es para leer la info de user desde app y pasarsela a User
-const UserProfilePage = ({ user }) => {
+// ya no llevan props xq accede User.jsx directamente a traves de context
+const UserProfilePage = () => {
     return <>
         <h2>User Profile</h2>
-        {/* User recibe como props la info de user para poder mostrar lo q debe mostrar */}
-        <User user={user} />
+        <User />
     </>
 }
 

@@ -3,25 +3,31 @@ import './App.css'
 import { Route, Routes } from "react-router";
 import NavBar from './components/NavBar';
 import UserProfilePage from './pages/userProfilePage';
+import UserContext from './context/UserContext';
 
 function App() {
-  // la data debe llegar desde aca a User.jsx, en el caso donde NO hay context se debe pasar la info
-  // de manera unidireccional entre cada componente (de padre a hijo)
+
   const [user, setUser] = useState({
     name: "mariela",
     age: 30
   })
-  return <div>
-    <Routes>
-      {/* El elemento UserProfilePage tiene como props user para poder recibir la info de App */}
-      <Route path="/user" element={<UserProfilePage user={user} />} />
-    </Routes>
-    <h1>ola</h1>
-    <NavBar user={user} />
+  return <>
+    {/* se debe envolver toda la app en el Context, a este se le debe agregar su
+  identificador (provider/consumer) y se le debe asignar un valor ==> Este se vuelve
+  accesible globalmente en la app*/}
+    <UserContext.Provider value={user}>
+      <div>
+        <Routes>
+          <Route path="/user" element={<UserProfilePage />} />
+        </Routes>
+        <h1>ola</h1>
+        <NavBar user={user} />
+      </div>
+    </UserContext.Provider>
+    {/* los componentes fuera del context, no tienen acceso/alcance a la informacion q pasa el context */}
+    <p>Este elemento NO puede acceder a la data del context </p>
+  </>
 
-
-
-  </div>
 }
 
 export default App
